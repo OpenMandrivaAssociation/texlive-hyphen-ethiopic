@@ -1,0 +1,86 @@
+Name:		texlive-hyphen-ethiopic
+Version:	20111102
+Release:	1
+Summary:	Hyphenation patterns for Ethiopic scripts
+Group:		Publishing
+URL:		http://tug.org/texlive
+License:	http://www.tug.org/texlive/LICENSE.TL
+Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/hyphen-ethiopic.tar.xz
+BuildArch:	noarch
+BuildRequires:	texlive-tlpkg
+Requires(post):	texlive-tlpkg
+Requires:	texlive-hyphen-base
+Requires:	texlive-hyph-utf8
+Conflicts:	texlive-texmf <= 20110705-3
+Requires(post):	texlive-hyphen-base
+
+%description
+Hyphenation patterns for languages written using the Ethiopic
+script for Unicode engines. They are not supposed to be
+linguistically relevant in all cases and should, for proper
+typography, be replaced by files tailored to individual
+languages.
+
+%pre
+    %_texmf_language_dat_pre
+    %_texmf_language_def_pre
+    %_texmf_language_lua_pre
+
+%post
+    %_texmf_language_dat_post
+    %_texmf_language_def_post
+    %_texmf_language_lua_post
+
+%preun
+    if [ $1 -eq 0 ]; then
+	%_texmf_language_dat_pre
+	%_texmf_language_def_pre
+	%_texmf_language_lua_pre
+    fi
+
+%postun
+    if [ $1 -eq 0 ]; then
+	%_texmf_language_dat_post
+	%_texmf_language_def_post
+	%_texmf_language_lua_post
+    fi
+
+#-----------------------------------------------------------------------
+%files
+%_texmf_language_dat_d/hyphen-ethiopic
+%_texmf_language_def_d/hyphen-ethiopic
+%_texmf_language_lua_d/hyphen-ethiopic
+
+#-----------------------------------------------------------------------
+%prep
+%setup -c -a0
+
+%build
+
+%install
+mkdir -p %{buildroot}%{_texmf_language_dat_d}
+cat > %{buildroot}%{_texmf_language_dat_d}/hyphen-ethiopic <<EOF
+%% from hyphen-ethiopic:
+ethiopic loadhyph-mul-ethi.tex
+=amharic
+=geez
+EOF
+mkdir -p %{buildroot}%{_texmf_language_def_d}
+cat > %{buildroot}%{_texmf_language_def_d}/hyphen-ethiopic <<EOF
+%% from hyphen-ethiopic:
+\addlanguage{ethiopic}{loadhyph-mul-ethi.tex}{}{1}{1}
+\addlanguage{amharic}{loadhyph-mul-ethi.tex}{}{1}{1}
+\addlanguage{geez}{loadhyph-mul-ethi.tex}{}{1}{1}
+EOF
+mkdir -p %{buildroot}%{_texmf_language_lua_d}
+cat > %{buildroot}%{_texmf_language_lua_d}/hyphen-ethiopic <<EOF
+-- from hyphen-ethiopic:
+	['ethiopic'] = {
+		loader = 'loadhyph-mul-ethi.tex',
+		lefthyphenmin = 1,
+		righthyphenmin = 1,
+		synonyms = { 'amharic', 'geez' },
+		patterns = 'hyph-mul-ethi.pat.txt',
+		hyphenation = '',
+	},
+EOF
