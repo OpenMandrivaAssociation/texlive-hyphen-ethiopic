@@ -1,5 +1,11 @@
+# revision 23085
+# category TLCore
+# catalog-ctan undef
+# catalog-date undef
+# catalog-license undef
+# catalog-version undef
 Name:		texlive-hyphen-ethiopic
-Version:	20111102
+Version:	20111103
 Release:	1
 Summary:	Hyphenation patterns for Ethiopic scripts
 Group:		Publishing
@@ -50,6 +56,7 @@ languages.
 %_texmf_language_dat_d/hyphen-ethiopic
 %_texmf_language_def_d/hyphen-ethiopic
 %_texmf_language_lua_d/hyphen-ethiopic
+%doc %{_tlpkgobjdir}/*.tlpobj
 
 #-----------------------------------------------------------------------
 %prep
@@ -58,6 +65,8 @@ languages.
 %build
 
 %install
+mkdir -p %{buildroot}%{_tlpkgobjdir}
+cp -fpa tlpkg/tlpobj/*.tlpobj %{buildroot}%{_tlpkgobjdir}
 mkdir -p %{buildroot}%{_texmf_language_dat_d}
 cat > %{buildroot}%{_texmf_language_dat_d}/hyphen-ethiopic <<EOF
 %% from hyphen-ethiopic:
