@@ -48,14 +48,14 @@ languages.
 %install
 mkdir -p %{buildroot}%{_texmf_language_dat_d}
 cat > %{buildroot}%{_texmf_language_dat_d}/hyphen-ethiopic <<EOF
-%% from hyphen-ethiopic:
+\%\% from hyphen-ethiopic:
 ethiopic loadhyph-mul-ethi.tex
 =amharic
 =geez
 EOF
 mkdir -p %{buildroot}%{_texmf_language_def_d}
 cat > %{buildroot}%{_texmf_language_def_d}/hyphen-ethiopic <<EOF
-%% from hyphen-ethiopic:
+\%\% from hyphen-ethiopic:
 \addlanguage{ethiopic}{loadhyph-mul-ethi.tex}{}{1}{1}
 \addlanguage{amharic}{loadhyph-mul-ethi.tex}{}{1}{1}
 \addlanguage{geez}{loadhyph-mul-ethi.tex}{}{1}{1}
