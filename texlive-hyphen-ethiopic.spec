@@ -6,7 +6,7 @@
 # catalog-version undef
 Name:		texlive-hyphen-ethiopic
 Version:	20120124
-Release:	7
+Release:	8
 Summary:	Hyphenation patterns for Ethiopic scripts
 Group:		Publishing
 URL:		http://tug.org/texlive
