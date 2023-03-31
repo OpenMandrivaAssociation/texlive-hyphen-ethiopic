@@ -1,6 +1,6 @@
 Name:		texlive-hyphen-ethiopic
 Version:	58652
-Release:	1
+Release:	2
 Summary:	Hyphenation patterns for Ethiopic scripts
 Group:		Publishing
 URL:		http://tug.org/texlive
