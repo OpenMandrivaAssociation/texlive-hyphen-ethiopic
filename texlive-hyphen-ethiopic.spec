@@ -14,7 +14,8 @@ BuildArch:	noarch
 BuildSystem:	texlive
 Requires:	texlive(hyph-utf8)
 Requires:	texlive(hyphen-base)
-Provides:	texlive(%{tl_name}) = %{tl_revision}
+Requires:	texlive-tlpkg
+Provides:	texlive(%{tl_name}) = %{version}
 
 %description
 Hyphenation patterns for languages written using the Ethiopic script for
@@ -22,3 +23,30 @@ Unicode engines. They are not supposed to be linguistically relevant in
 all cases and should, for proper typography, be replaced by files
 tailored to individual languages.
 
+
+%install -a
+mkdir -p %{buildroot}%{_texmf_language_dat_d}
+cat > %{buildroot}%{_texmf_language_dat_d}/%{tl_name} <<'TL_HYPHEN_EOF'
+% from hyphen-ethiopic:
+ethiopic loadhyph-mul-ethi.tex
+=amharic
+=geez
+TL_HYPHEN_EOF
+mkdir -p %{buildroot}%{_texmf_language_def_d}
+cat > %{buildroot}%{_texmf_language_def_d}/%{tl_name} <<'TL_HYPHEN_EOF'
+% from hyphen-ethiopic:
+\addlanguage{ethiopic}{loadhyph-mul-ethi.tex}{}{1}{1}
+\addlanguage{amharic}{loadhyph-mul-ethi.tex}{}{1}{1}
+\addlanguage{geez}{loadhyph-mul-ethi.tex}{}{1}{1}
+TL_HYPHEN_EOF
+mkdir -p %{buildroot}%{_texmf_language_lua_d}
+cat > %{buildroot}%{_texmf_language_lua_d}/%{tl_name} <<'TL_HYPHEN_EOF'
+-- from hyphen-ethiopic:
+['ethiopic'] = {
+	loader = 'loadhyph-mul-ethi.tex',
+	lefthyphenmin = 1,
+	righthyphenmin = 1,
+	synonyms = { 'amharic', 'geez' },
+	patterns = 'hyph-mul-ethi.pat.txt',
+},
+TL_HYPHEN_EOF
