@@ -3,7 +3,7 @@
 
 Name:		texlive-%{tl_name}
 Version:	%{tl_revision}
-Release:	1
+Release:	2
 Summary:	Hyphenation patterns for Ethiopic scripts.
 Group:		Publishing
 URL:		https://www.ctan.org/pkg/hyphen-ethiopic
